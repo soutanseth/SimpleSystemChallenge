@@ -2,6 +2,8 @@ package com.simplesystem.challenge.simpletodo.dto;
 
 import java.time.LocalDateTime;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -11,6 +13,7 @@ public class AddTodoItemDto {
 	private String description;
 	
 	@NotNull
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDateTime dueDateTime;
 
 	public String getDescription() {

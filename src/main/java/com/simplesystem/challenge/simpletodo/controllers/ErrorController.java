@@ -2,6 +2,7 @@ package com.simplesystem.challenge.simpletodo.controllers;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -39,8 +40,9 @@ public class ErrorController {
     }
     
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler({UnrecognizedPropertyException.class, HttpMessageNotReadableException.class})
-    public String handleUnrecognizedPropertyException(UnrecognizedPropertyException e) {
+    @ExceptionHandler({UnrecognizedPropertyException.class, HttpMessageNotReadableException.class, ConversionFailedException.class})
+    public String handleUnrecognizedPropertyException(Exception e) {
+    	e.printStackTrace();
     	return "Unrecognized Property";
     }
 }

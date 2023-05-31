@@ -40,9 +40,9 @@ public class TodoService {
 		return modelMapper.map(todoObj, TodoDto.class);
 	}
 	
-	public List<TodoDto> getTodoItems(String filter){
+	public List<TodoDto> getTodoItems(boolean includeAll){
 		List<Todo> todoItems =null;
-		if(filter!=null && !filter.isEmpty() && filter.equalsIgnoreCase("all")) {
+		if(includeAll) {
 			todoItems = todoRepository.findAll();
 		}else {
 			todoItems=todoRepository.findByStatus(TodoStatus.NOT_DONE);
@@ -87,13 +87,13 @@ public class TodoService {
 	
 	@Scheduled(fixedRate = 2000) //TODO: read it from Properties
 	public void updateNotDoneStatus() {
-		LOGGER.info("running updateNotDoneStatus() - start");
+//		LOGGER.info("running updateNotDoneStatus() - start");
 		List<Todo> notDoneTodoItemList = todoRepository.findByStatus(TodoStatus.NOT_DONE);
 		final LocalDateTime current = LocalDateTime.now();
 		List<Todo> toBeUpdatedList = notDoneTodoItemList.parallelStream().filter((notDoneTodoItem) -> notDoneTodoItem.getDueDateTime().isBefore(current)).collect(Collectors.toList());
 		toBeUpdatedList.stream().forEach((e) -> e.setStatus(TodoStatus.PAST_DUE));
 		todoRepository.saveAll(toBeUpdatedList);
-		LOGGER.info("running updateNotDoneStatus() - done");
+//		LOGGER.info("running updateNotDoneStatus() - done");
 	}
 	
 }

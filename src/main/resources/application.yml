@@ -6,5 +6,5 @@ spring:
   jpa:
     defer-datasource-initialization: true
   jackson:
-    deserialization.fail_on_unknown_properties: true
-    
+    deserialization:
+      fail_on_unknown_properties: true

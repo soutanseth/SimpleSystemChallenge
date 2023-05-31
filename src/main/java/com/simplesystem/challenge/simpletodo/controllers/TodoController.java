@@ -10,21 +10,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.simplesystem.challenge.simpletodo.dto.AddTodoItemDto;
 import com.simplesystem.challenge.simpletodo.dto.TodoDto;
-import com.simplesystem.challenge.simpletodo.dto.UpdateTodoStatusDto;
+import com.simplesystem.challenge.simpletodo.dto.UpdateTodoDescriptionDto;
 import com.simplesystem.challenge.simpletodo.exception.TodoException;
 import com.simplesystem.challenge.simpletodo.services.TodoService;
+import com.simplesystem.challenge.simpletodo.validation.util.ValidationUtil;
+
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/todo")
 public class TodoController {
 	
-//	private final Logger LOGGER = LogManager.getLogger(getClass());
+	private final Logger LOGGER = LogManager.getLogger(getClass());
 	
 	private TodoService todoService;
 	
@@ -32,18 +33,25 @@ public class TodoController {
 		this.todoService=todoService;
 	}
 	
-	@PostMapping //TODO: Use Single Dto with Validation
+	@PostMapping
 	public TodoDto addTodoItem(@RequestBody @Valid AddTodoItemDto todoDto) {
+		LOGGER.debug("inside addTodoItem(): Request body: "+todoDto);
 		return todoService.addTodoItem(todoDto);
 	}
 	
 	@GetMapping
-	public List<TodoDto> getTodoItems(@RequestParam(required = false)  String filter) {
-		return todoService.getTodoItems(filter);
+	public List<TodoDto> getNotDoneTodoItems() {
+		return todoService.getTodoItems(false);
 	}
 	
-	@PutMapping("{id}/update") //TODO: Use Single Dto with Validation
-	public TodoDto updateTodoItem(@PathVariable String id, @RequestBody @Valid TodoDto updateTodoDescriptionDto) throws TodoException {
+	@GetMapping("all")
+	public List<TodoDto> getAllTodoItems() {
+		return todoService.getTodoItems(true);
+	}
+	
+	@PutMapping("{id}/update")
+	public TodoDto updateTodoItem(@PathVariable String id, @RequestBody @Valid UpdateTodoDescriptionDto updateTodoDescriptionDto) throws TodoException {
+		LOGGER.debug("inside addTodoItem(): id: "+id+", Request body: "+updateTodoDescriptionDto);
 		TodoDto todoDto = new TodoDto();
 		todoDto.setId(id);
 		todoDto.setDescription(updateTodoDescriptionDto.getDescription());
@@ -51,16 +59,20 @@ public class TodoController {
 	}
 	
 	@GetMapping("{id}")
-	public TodoDto getDetails(@PathVariable String todoId) throws TodoException {
-		return todoService.getDetails(todoId);
+	public TodoDto getDetails(@PathVariable String id) throws TodoException {
+		LOGGER.debug("inside addTodoItem(): id: "+id);
+		return todoService.getDetails(id);
 	}
 	
-	@PutMapping("{id}/mark") //TODO: Use Single Dto with Validation
-	public TodoDto updateTodoItemStatus(@PathVariable String id, @RequestBody @Valid UpdateTodoStatusDto status) throws TodoException {
+	@PutMapping("{id}/mark/{status}") //TODO: make it simpler
+	public TodoDto updateTodoItemStatus(@PathVariable String id, @PathVariable String status) throws TodoException {
+		LOGGER.debug("inside addTodoItem(): id: "+id+", Status: "+status);
 		TodoDto todoDto = new TodoDto();
 		todoDto.setId(id);
-		todoDto.setStatus(status.getStatus());
+		todoDto.setStatus(ValidationUtil.validateStatusStrAndGet(status));
 		return todoService.updateTodoItem(todoDto);
 	}
+	
+
 
 }
