@@ -4,10 +4,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.util.Arrays;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +36,7 @@ public class IntegrationTests {
 	public void testCreateReadUpdate() {
 		AddTodoItemDto addTodoDto= new AddTodoItemDto();
 		addTodoDto.setDescription("Todo-1");
+		addTodoDto.setDueDateTime(LocalDateTime.parse("2023-06-06 03:14", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
 
 		TodoDto todoResult = todoController.addTodoItem(addTodoDto);
 		assertNotNull(todoResult);

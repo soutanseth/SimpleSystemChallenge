@@ -22,13 +22,14 @@ This is a Simple Todo Service which allows to manage Todo items
 
 ## Tech Stack used
 1. Java 1.8
-2. Spring Boot Web MVC with RESTful service
-3. Spring Boot JPA
-4. H2 Database
-5. Spring Boot Validation
-6. Springdoc Openapi for Api Documentation
-7. Maven
-7. Docker
+2. Spring Boot 3.0.7
+3. Spring Boot Web MVC with RESTful service
+4. Spring Boot JPA
+5. H2 Database
+6. Spring Boot Validation
+7. Springdoc Openapi for Api Documentation
+8. Maven
+9. Docker
 
 ## Pre-requisites
 1. Java 1.8

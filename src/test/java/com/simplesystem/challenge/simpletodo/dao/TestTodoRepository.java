@@ -2,9 +2,6 @@ package com.simplesystem.challenge.simpletodo.dao;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
