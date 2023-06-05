@@ -2,8 +2,11 @@ package com.simplesystem.challenge.simpletodo.dto;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.simplesystem.challenge.simpletodo.models.TodoStatus;
 
+@JsonInclude(Include.NON_NULL)
 public class TodoDto {
 
 	private String id;

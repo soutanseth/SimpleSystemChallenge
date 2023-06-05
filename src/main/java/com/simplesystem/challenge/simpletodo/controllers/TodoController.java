@@ -64,7 +64,7 @@ public class TodoController {
 		return todoService.getDetails(id);
 	}
 	
-	@PutMapping("{id}/mark/{status}") //TODO: make it simpler
+	@PutMapping("{id}/mark/{status}")
 	public TodoDto updateTodoItemStatus(@PathVariable String id, @PathVariable String status) throws TodoException {
 		LOGGER.debug("inside addTodoItem(): id: "+id+", Status: "+status);
 		TodoDto todoDto = new TodoDto();

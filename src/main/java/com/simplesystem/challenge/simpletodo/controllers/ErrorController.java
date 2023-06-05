@@ -36,7 +36,7 @@ public class ErrorController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public String handleValidationError(MethodArgumentNotValidException e) {
-    	return "vaidation errror";
+    	return "validation error";
     }
     
     @ResponseStatus(HttpStatus.BAD_REQUEST)

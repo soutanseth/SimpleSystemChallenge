@@ -51,6 +51,7 @@ public class TodoService {
 	}
 	
 	public TodoDto updateTodoItem(TodoDto todoDto) throws TodoException {
+		LOGGER.debug("TodoDto object: "+todoDto);
 		Optional<Todo> exisitngTodoOptional = todoRepository.findById(todoDto.getId());
 		if(exisitngTodoOptional.isPresent()) {
 			Todo todoObj=exisitngTodoOptional.get();
@@ -85,15 +86,14 @@ public class TodoService {
 		return modelMapper.map(todoObj, TodoDto.class);
 	}
 	
-	@Scheduled(fixedRate = 2000) //TODO: read it from Properties
+	@Scheduled(fixedRateString = "${fixedRate.in.milliseconds}")
 	public void updateNotDoneStatus() {
-//		LOGGER.info("running updateNotDoneStatus() - start");
+		LOGGER.debug("running updateNotDoneStatus() - start");
 		List<Todo> notDoneTodoItemList = todoRepository.findByStatus(TodoStatus.NOT_DONE);
 		final LocalDateTime current = LocalDateTime.now();
 		List<Todo> toBeUpdatedList = notDoneTodoItemList.parallelStream().filter((notDoneTodoItem) -> notDoneTodoItem.getDueDateTime().isBefore(current)).collect(Collectors.toList());
 		toBeUpdatedList.stream().forEach((e) -> e.setStatus(TodoStatus.PAST_DUE));
 		todoRepository.saveAll(toBeUpdatedList);
-//		LOGGER.info("running updateNotDoneStatus() - done");
 	}
 	
 }

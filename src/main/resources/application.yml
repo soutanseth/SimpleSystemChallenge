@@ -8,3 +8,6 @@ spring:
   jackson:
     deserialization:
       fail_on_unknown_properties: true
+fixedRate:
+  in:
+    milliseconds: 2000

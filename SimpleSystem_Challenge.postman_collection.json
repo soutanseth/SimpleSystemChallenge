@@ -1,0 +1,91 @@
+{
+	"info": {
+		"_postman_id": "992fdd8f-223f-4899-80a5-334595ea59df",
+		"name": "SimpleSystem_Challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "13378330"
+	},
+	"item": [
+		{
+			"name": "Add Todo Item",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"Todo-1\",\r\n    \"dueDateTime\": \"2023-06-06 03:30\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/api/todo"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Todo Items",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/api/todo/all"
+			},
+			"response": []
+		},
+		{
+			"name": "udpate",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"Todo-1(Updated)\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/api/todo/59f6e4c0-52d0-488a-9dfa-31c8cfd3d8d6/update"
+			},
+			"response": []
+		},
+		{
+			"name": "mark",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"status\" : \"DONE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/api/todo/59f6e4c0-52d0-488a-9dfa-31c8cfd3d8d6/mark"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Not Done",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/api/todo"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/api/todo/59f6e4c0-52d0-488a-9dfa-31c8cfd3d8d6"
+			},
+			"response": []
+		}
+	]
+}
